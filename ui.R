@@ -1,3 +1,4 @@
+
 # Define UI for application 
 ui <- fluidPage(
   useShinydashboard(),
@@ -11,11 +12,11 @@ ui <- fluidPage(
       selectInput(inputId = "categorie",
                   label = "Choisissez la catégorie",
                   choices = vect_categorie,
-                  selected = "Entreprises"),
+                  selected = "Résidentiels"),
       
       # Select date range to be plotted
       dateRangeInput("date", strong("Choissisez une période"),
-                     start = "2020-03-17", end = "2021-12-30",
+                     start = "2020-03-17", end = "2021-01-01",
                      min = "2020-03-17", max = "2021-12-30"
       ),
       
@@ -36,6 +37,6 @@ ui <- fluidPage(
       valueBoxOutput("vbox3", width = 5),
       valueBoxOutput("vbox4", width = 5)
       
-    ),  
+    ) 
   )
 )
