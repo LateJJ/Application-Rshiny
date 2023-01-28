@@ -16,3 +16,7 @@ En premier nous avons tester un modèle ARIMA mais nous nous sommes rendu compte
 
 Nous avons de même essayer un modèle de random forest toujours avec variable explicative température, mais sur les données concernant les entreprises,
 nous avons obtenu 21 % pour la variance expliquée. 
+
+
+# Excécution du Shiny
+Excécution d'apporte le fichier préparation.R, ensuite ui.R, puis server.R et en fin global.R
