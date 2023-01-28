@@ -15,17 +15,23 @@ server <- function(input, output) {
   
   
   output$lineplot <- renderPlotly({
-    p <- plot_ly(x = get_vrai_table()$Jour %>% yday(), y = get_vrai_table()$Puissance.moy, type = "scatter", mode = "lines", name = "Valeurs réels") %>% 
-      add_trace(x = get_vrai_table()$Jour %>% yday(), y = get_vrai_table()$fit, type = "scatter", mode = "lines", name = "Prédictions") %>% 
-      add_trace(x = get_vrai_table()$Jour %>% yday(), y = get_vrai_table()$upr, type = "scatter", mode = "lines", name = "y = IC borne supérieure") %>% 
-      add_trace(x = get_vrai_table()$Jour %>% yday(), y = get_vrai_table()$lwr, type = "scatter", mode = "lines", name = "y = IC borne inférieure")
-    p<- p %>% layout(title = 'Valeurs observées et valeurs prédites pendant la covid')
-    p
+    ggplotly(
+      ggplot(data = get_vrai_table(), aes(x=Jour %>% yday())) +
+        geom_line(aes(y = Puissance.moy), color = "black", name = "Prédictions") +
+        geom_line(aes(y = fit), color = "orange") +
+        geom_line(aes(y = upr), color="blue", linetype="dashed") +
+        geom_line(aes(y = lwr), color="blue", linetype="dashed") +
+        xlab("Jour") +
+        ggtitle("Graphique valeurs réalisées & valeurs prédites"), 
+    ) 
+    
   })
+  
+  
   
   ## Valuebox
   output$vbox1 <- shinydashboard::renderValueBox({
-     sp <- round(sum(get_vrai_table()["fit"]),2)
+    sp <- round(sum(get_vrai_table()["fit"]),2)
     shinydashboard::valueBox(sp, "Somme prédite en GWh", color = "orange")
   })
 
@@ -57,5 +63,3 @@ server <- function(input, output) {
 
 }
 
-# Run the application
-shinyApp(ui = ui, server = server)
